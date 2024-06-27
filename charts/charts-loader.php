@@ -13,12 +13,10 @@ class Dt_Metrics_Gap_List_Charts
 
     public function __construct(){
 
-        require_once( 'one-page-chart-template.php' );
-        new Dt_Metrics_Gap_List_Chart_Template();
-
-        /**
-         * @todo add other charts like the pattern above here
-         */
+        require_once( 'hover-map.php' );
+        require_once( 'list.php' );
+        new Dt_Metrics_Gap_List_Hover_Map();
+        new Dt_Metrics_Gap_List_List();
 
     } // End __construct
 }

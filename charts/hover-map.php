@@ -1,20 +1,15 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-/**
- * @todo replace all occurrences of the string "template" with a string of your choice
- * @todo also rename in charts-loader.php
- */
-
-class Dt_Metrics_Gap_List_Chart_Template extends DT_Metrics_Chart_Base
+class Dt_Metrics_Gap_List_Hover_Map extends DT_Metrics_Chart_Base
 {
-    public $base_slug = 'dt-metrics-gap-list-metrics'; // lowercase
-    public $base_title = 'Metrics Gap List Metrics';
+    public $base_slug = 'combined'; // lowercase
+    public $base_title = 'Project';
 
-    public $title = 'Template';
-    public $slug = 'template'; // lowercase
+    public $title = 'Gap Map';
+    public $slug = 'gap-map'; // lowercase
     public $js_object_name = 'wp_js_object'; // This object will be loaded into the metrics.js file by the wp_localize_script.
-    public $js_file_name = 'one-page-chart-template.js'; // should be full file name plus extension
+    public $js_file_name = 'hover-map.js'; // should be full file name plus extension
     public $permissions = [ 'dt_all_access_contacts', 'view_project_metrics' ];
 
     public function __construct() {
