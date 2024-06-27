@@ -3,10 +3,10 @@
 class PluginTest extends TestCase
 {
     public function test_plugin_installed() {
-        activate_plugin( 'disciple-tools-plugin-starter-template/disciple-tools-plugin-starter-template.php' );
+        activate_plugin( 'dt-metrics-gap-list/dt-metrics-gap-list.php' );
 
         $this->assertContains(
-            'disciple-tools-plugin-starter-template/disciple-tools-plugin-starter-template.php',
+            'dt-metrics-gap-list/dt-metrics-gap-list.php',
             get_option( 'active_plugins' )
         );
     }
