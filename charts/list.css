@@ -1,0 +1,5 @@
+td.alert {
+    font-weight: bold;
+    background-color: var(--alert-color, #cc4b37);
+    color: #fefefe;
+}

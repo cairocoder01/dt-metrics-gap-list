@@ -1,105 +1,288 @@
-(function() {
-  "use strict";
-  jQuery(document).ready(function() {
+'use strict';
+let LISTDATA = null;
 
-    // expand the current selected menu
-    jQuery('#metrics-sidemenu').foundation('down', jQuery(`#${window.wp_js_object.base_slug}-menu`));
+jQuery(document).ready(function () {
+  jQuery('#metrics-sidemenu').foundation(
+    'down',
+    jQuery(`#${window.wp_js_object.base_slug}-menu`),
+  );
 
+  let chartDiv = jQuery('#chart');
+  chartDiv.empty().html(`
+    <div id="mapping_chart"></div>
+  `);
 
-    show_template_overview()
-
-  })
-
-  function show_template_overview(){
-
-    let localizedObject = window.wp_js_object // change this object to the one named in ui-menu-and-enqueue.php
-    let translations = localizedObject.translations
-
-    let chartDiv = jQuery('#chart') // retrieves the chart div in the metrics page
-
-    chartDiv.empty().html(`
-      <span class="section-header">${localizedObject.translations.title}</span>
-
-      <hr style="max-width:100%;">
-      
-      <div id="chartdiv"></div>
-      
-      <hr style="max-width:100%;">
-
-      <button type="button" onclick="sample_api_call('Yeh successful response from API!')" class="button" id="sample_button">${translations["Sample API Call"]}</button>
-      <div id="sample_spinner" style="display: inline-block" class="loading-spinner"></div>
-    `)
-
-    // Create chart instance
-    var chart = am4core.create("chartdiv", am4charts.PieChart);
-
-    // Add data
-    chart.data = [{
-      "country": "Lithuania",
-      "litres": 501.9
-    }, {
-      "country": "Czech Republic",
-      "litres": 301.9
-    }, {
-      "country": "Ireland",
-      "litres": 201.1
-    }, {
-      "country": "Germany",
-      "litres": 165.8
-    }, {
-      "country": "Australia",
-      "litres": 139.9
-    }, {
-      "country": "Austria",
-      "litres": 128.3
-    }, {
-      "country": "UK",
-      "litres": 99
-    }, {
-      "country": "Belgium",
-      "litres": 60
-    }, {
-      "country": "The Netherlands",
-      "litres": 50
-    }];
-
-    // Add and configure Series
-    var pieSeries = chart.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "litres";
-    pieSeries.dataFields.category = "country";
+  if (window.wpApiShare.url_path.startsWith(window.wp_js_object.load_url)) {
+    LISTDATA = window.wp_js_object.mapping_module;
+    page_mapping_list();
   }
+});
 
-  window.sample_api_call = function sample_api_call( button_data ) {
+/**********************************************************************************************************************
+ *
+ * LIST
+ *
+ * This page allows for drill-down into the locations and related reports.
+ *
+ **********************************************************************************************************************/
 
+function page_mapping_list() {
+  'use strict';
+  let chartDiv = jQuery('#chart');
+  chartDiv.empty().html(`
+    <style>
+      .map_wrapper {}
+      .map_header_wrapper {
+          float:left;
+          position:absolute;
+      }
+      .section_title {
+          font-size:1.5em;
+      }
+      .current_level {}
+      .location_list {
+      }
+      .map_hr {
+        max-width:100%;
+        margin: 10px 0;
+      }
+      @media screen and (max-width : 640px){
+        #country-list-table {
+          margin-left: 5px !important;
+        }
+        .map_header_wrapper {
+          position:relative;
+          text-align: center;
+          width: 100%;
+        }
+      }
+    </style>
 
-    let localizedObject = window.wp_js_object // change this object to the one named in ui-menu-and-enqueue.php
+    <!-- List Widget -->
+    <div id="map_wrapper" class="map_wrapper">
+      <div id="map_drill_wrapper" class="grid-x grid-margin-x map_drill_wrapper">
+        <div id="location_list_drilldown" class="cell auto location_list_drilldown"></div>
+      </div>
+      <hr id="map_hr_1" class="map_hr">
 
-    let button = jQuery('#sample_button')
+      <div id="map_header_wrapper" class="map_header_wrapper">
+        <strong id="section_title" class="section_title" ></strong><br>
+        <span id="current_level" class="current_level"></span>
+      </div>
 
-    $('#sample_spinner').addClass("active")
+      <div id="location_list" class="location_list"><span class="loading-spinner active"></span></div>
+      <hr id="map_hr_2" class="map_hr">
+    </div> <!-- end widget -->
+  `);
 
-    let data = { "button_data": button_data };
-    return jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify(data),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: `${localizedObject.rest_endpoints_base}/sample`,
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('X-WP-Nonce', localizedObject.nonce);
+  get_data(false)
+    .then((response) => {
+      LISTDATA.data = response;
+      // set the depth of the drill down
+      LISTDATA.settings.hide_final_drill_down = false;
+      // load drill down
+      window.DRILLDOWN.get_drill_down(
+        'location_list_drilldown',
+        LISTDATA.settings.current_map,
+        LISTDATA.settings.cached,
+      );
+    })
+    .fail((err) => {
+      console.log(err);
+    });
+}
+
+window.DRILLDOWN.location_list_drilldown = function (grid_id) {
+  location_grid_list('location_list', grid_id);
+};
+function get_data(force_refresh = false) {
+  let spinner = jQuery('.loading-spinner');
+  spinner.addClass('active');
+  return jQuery
+    .ajax({
+      type: 'GET',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      url: `${window.wp_js_object.rest_endpoint}?refresh=${force_refresh}`,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('X-WP-Nonce', window.wp_js_object.nonce);
       },
     })
-    .done(function (data) {
-      $('#sample_spinner').removeClass("active")
-      button.empty().append(data)
-      console.log( 'success' )
-      console.log( data )
+    .then(function (response) {
+      spinner.removeClass('active');
+      return response;
     })
     .fail(function (err) {
-      $('#sample_spinner').removeClass("active")
-      button.empty().append("error. Something went wrong")
-      console.log("error");
+      spinner.removeClass('active');
+      console.log('error');
       console.log(err);
-    })
+    });
+}
+
+function location_grid_list(div, grid_id) {
+  window.DRILLDOWN.show_spinner();
+
+  // Find data source before build
+  if (grid_id === 'top_map_level') {
+    let map_data = null;
+    let default_map_settings = LISTDATA.settings.default_map_settings;
+
+    if (window.DRILLDOWN.isEmpty(default_map_settings.children)) {
+      map_data = LISTDATA.data[default_map_settings.parent];
+    } else {
+      if (default_map_settings.children.length < 2) {
+        // single child
+        map_data = LISTDATA.data[default_map_settings.children[0]];
+      } else {
+        // multiple child
+        jQuery('#section_title').empty();
+        jQuery('#current_level').empty();
+        jQuery('#location_list').empty().append('Select Location');
+        window.DRILLDOWN.hide_spinner();
+        return;
+      }
+    }
+
+    // Initialize Location Data
+    if (map_data === undefined) {
+      console.log('error getting map_data');
+      return;
+    }
+
+    build_location_grid_list(div, map_data);
+  } else if (LISTDATA.data[grid_id] === undefined) {
+    let rest = LISTDATA.settings.endpoints.get_map_by_grid_id_endpoint;
+
+    jQuery
+      .ajax({
+        type: rest.method,
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({
+          grid_id: grid_id,
+          cached: LISTDATA.settings.cached,
+          cached_length: LISTDATA.settings.cached_length,
+        }),
+        dataType: 'json',
+        url: LISTDATA.settings.root + rest.namespace + rest.route,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-WP-Nonce', rest.nonce);
+        },
+      })
+      .done(function (response) {
+        LISTDATA.data[grid_id] = response;
+        build_location_grid_list(div, LISTDATA.data[grid_id]);
+      })
+      .fail(function (err) {
+        console.log('error');
+        console.log(err);
+        window.DRILLDOWN.hide_spinner();
+      });
+  } else {
+    build_location_grid_list(div, LISTDATA.data[grid_id]);
   }
-})();
+
+  // build list
+  function build_location_grid_list(div, map_data) {
+    let translations = window.wp_js_object.translations;
+
+    // Place Title
+    let title = jQuery('#section_title');
+    title.empty().html(map_data.self.name);
+
+    // Population Division and Check for Custom Division
+    let pd_settings = LISTDATA.settings.population_division;
+    let population_division = pd_settings.base;
+    if (!window.DRILLDOWN.isEmpty(pd_settings.custom)) {
+      jQuery.each(pd_settings.custom, function (i, v) {
+        if (map_data.self.grid_id === i) {
+          population_division = v;
+        }
+      });
+    }
+
+    // Self Data
+    let self_population = map_data.self.population_formatted;
+    jQuery('#current_level')
+      .empty()
+      .html(
+        `${window.SHAREDFUNCTIONS.escapeHTML(translations.population)} ${window.SHAREDFUNCTIONS.escapeHTML(self_population)}`,
+      );
+
+    // Build List
+    let locations = jQuery('#location_list');
+    locations.empty();
+
+    let html = `<table id="country-list-table" class="display">`;
+
+    // Header Section
+    html += `<thead><tr><th>${window.SHAREDFUNCTIONS.escapeHTML(translations.name)}</th><th>${window.SHAREDFUNCTIONS.escapeHTML(translations.population)}</th>`;
+
+    /* Additional Columns */
+    if (LISTDATA.data.custom_column_labels) {
+      jQuery.each(LISTDATA.data.custom_column_labels, function (i, v) {
+        html += `<th>${window.SHAREDFUNCTIONS.escapeHTML(v.label)}</th>`;
+      });
+    }
+    /* End Additional Columns */
+
+    html += `</tr></thead>`;
+    // End Header Section
+
+    // Children List Section
+    let sorted_children = window.lodash.sortBy(map_data.children, [
+      function (o) {
+        return o.name;
+      },
+    ]);
+
+    html += `<tbody>`;
+
+    jQuery.each(sorted_children, function (i, v) {
+      let population = v.population_formatted;
+
+      html += `<tr>
+                    <td><strong><a onclick="DRILLDOWN.get_drill_down('location_list_drilldown', ${window.SHAREDFUNCTIONS.escapeHTML(v.grid_id)} )">${window.SHAREDFUNCTIONS.escapeHTML(v.name)}</a></strong></td>
+                    <td>${window.SHAREDFUNCTIONS.escapeHTML(population)}</td>`;
+
+      /* Additional Columns */
+      if (LISTDATA.data.custom_column_data[v.grid_id]) {
+        jQuery.each(
+          LISTDATA.data.custom_column_data[v.grid_id],
+          function (ii, vv) {
+            const className = vv === 0 ? 'alert' : '';
+            html += `<td class="${className}">${window.SHAREDFUNCTIONS.escapeHTML(vv)}</td>`;
+          },
+        );
+      } else {
+        jQuery.each(LISTDATA.data.custom_column_labels, function (ii, vv) {
+          html += `<td class="alert">0</td>`;
+        });
+      }
+      /* End Additional Columns */
+
+      html += `</tr>`;
+    });
+    html += `</tbody>`;
+    // end Child section
+
+    html += `</table>`;
+    locations.append(html);
+
+    let isMobile = window.matchMedia(
+      'only screen and (max-width: 760px)',
+    ).matches;
+
+    if (isMobile) {
+      jQuery('#country-list-table').DataTable({
+        paging: false,
+        scrollX: true,
+      });
+    } else {
+      jQuery('#country-list-table').DataTable({
+        paging: false,
+      });
+    }
+
+    window.DRILLDOWN.hide_spinner();
+  }
+}
