@@ -92,8 +92,19 @@ class Dt_Metrics_Gap_List {
             require_once( 'charts/charts-loader.php' );  // add custom charts to the metrics area
         }
 
+        add_filter( 'dt_set_roles_and_permissions', [ $this, 'dt_set_roles_and_permissions' ], 20, 1 ); //after contacts
+
         $this->i18n();
 
+    }
+
+    public function dt_set_roles_and_permissions( $roles ) {
+
+        if ( !isset( $expected_roles['multiplier'] ) ){
+            $roles['multiplier']['permissions']['view_mapping'] = true;
+        }
+
+        return $roles;
     }
 
     /**

@@ -10,7 +10,7 @@ class Dt_Metrics_Gap_List_List extends DT_Metrics_Chart_Base
     public $js_object_name = 'wp_js_object'; // This object will be loaded into the metrics.js file by the wp_localize_script.
     public $js_file_name = 'list.js'; // should be full file name plus extension
     public $css_file_name = 'list.css'; // should be full file name plus extension
-    public $permissions = [ 'dt_all_access_contacts', 'view_project_metrics' ];
+    public $permissions = [ 'access_contacts', 'access_groups', 'view_mapping' ];
 
     public function __construct() {
         parent::__construct();
