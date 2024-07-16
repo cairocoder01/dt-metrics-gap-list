@@ -44,7 +44,7 @@ class Dt_Metrics_Gap_List_List extends DT_Metrics_Chart_Base
         wp_register_style( 'dt_'.$this->slug.'_style',
             trailingslashit( plugin_dir_url( __FILE__ ) ) . $this->css_file_name,
             [],
-            filemtime( plugin_dir_path( __FILE__ ) .$this->css_file_name ) );
+        filemtime( plugin_dir_path( __FILE__ ) .$this->css_file_name ) );
         wp_enqueue_style( 'dt_'.$this->slug.'_style' );
 
         // Datatable
