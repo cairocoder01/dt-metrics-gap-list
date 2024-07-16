@@ -3,18 +3,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Disciple.Tools - Metrics Gap List 1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dt-metrics-gap-list-master\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dt-metrics-gap-"
+"list-master\n"
 "POT-Creation-Date: 2024-07-16 11:44:12+00:00\n"
+"PO-Revision-Date: 2024-07-16 14:51+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: charts/hover-map.php:21
 msgid "Gap Map"
-msgstr ""
+msgstr "Gap Map"
 
 #: charts/hover-map.php:22 charts/list.php:23
 msgid "Project"
@@ -47,6 +50,7 @@ msgstr ""
 #: charts/list.php:22
 msgid "Gap List"
 msgstr ""
+
 #. Plugin Name of the plugin/theme
 msgid "Disciple.Tools - Metrics Gap List"
 msgstr ""
@@ -56,7 +60,9 @@ msgid "https://github.com/cairocoder01/dt-metrics-gap-list"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Disciple.Tools - Metrics Gap List is intended to help developers and integrator jumpstart their extension of the Disciple.Tools system."
+msgid ""
+"Disciple.Tools - Metrics Gap List is intended to help developers and "
+"integrator jumpstart their extension of the Disciple.Tools system."
 msgstr ""
 
 #. Author URI of the plugin/theme
