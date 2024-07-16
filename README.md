@@ -14,7 +14,7 @@ you want to see [where the Kingdom isn't](https://zume.training/eyes-to-see-wher
 >
 > \- Zume
 
-Existing metrics in Disciple.Tools show where you do have contacts, groups and churches,
+Existing metrics in Disciple.Tools show where you do have contacts, groups, churches, and users,
 but it doesn't specifically highlight where there ISN'T Kingdom impact happening.
 This plugin adds a Gap List - both as a map and a flat list of locations - so that you
 can prioritize your Kingdom efforts.
@@ -25,7 +25,7 @@ can prioritize your Kingdom efforts.
 
 - Adds Gap Map (Metrics -> Project)
 - Adds Gap List (Metrics -> Project)
-- Shows Gaps for Contacts, Groups, Teams, and Churches
+- Shows Gaps for Contacts, Groups, Teams (new), Churches, and Users
 - Supports deep diving into any administrative level support by your site's location list
 - Makes Gap Map/List visible to all Multiplier users, as well as any users who already have Project Metrics access
 
