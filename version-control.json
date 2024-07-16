@@ -1,6 +1,6 @@
 {
   "name": "Disciple.Tools - Metrics Gap List",
-  "version": "0.1",
+  "version": "1.0",
   "last_updated": "2024-06",
   "author": "cairocoder01",
   "author_homepage": "https://github.com/cairocoder01",
@@ -15,7 +15,7 @@
   "license_url": "https://raw.githubusercontent.com/cairocoder01/dt-metrics-gap-list/master/LICENSE",
   "readme_url": "https://raw.githubusercontent.com/cairocoder01/dt-metrics-gap-list/master/README.md",
   "requires": "4.7",
-  "tested": "5.7",
+  "tested": "6.5",
   "upgrade_notice": "Upgrade to get the latest features.",
   "banners": {
     "low": "https://raw.githubusercontent.com/cairocoder01/dt-metrics-gap-list/master/documentation/banner.png",

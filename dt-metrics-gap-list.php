@@ -5,12 +5,12 @@
  * Description: Disciple.Tools - Metrics Gap List is intended to help developers and integrator jumpstart their extension of the Disciple.Tools system.
  * Text Domain: dt-metrics-gap-list
  * Domain Path: /languages
- * Version:  0.1
+ * Version:  1.0
  * Author URI: https://github.com/cairocoder01
  * GitHub Plugin URI: https://github.com/cairocoder01/dt-metrics-gap-list
  * Requires at least: 4.7.0
  * (Requires 4.7+ because of the integration of the REST API at 4.7 and the security requirements of this milestone version.)
- * Tested up to: 5.6
+ * Tested up to: 6.5
  *
  * @package Disciple_Tools
  * @link    https://github.com/DiscipleTools
@@ -100,7 +100,7 @@ class Dt_Metrics_Gap_List {
 
     public function dt_set_roles_and_permissions( $roles ) {
 
-        if ( !isset( $expected_roles['multiplier'] ) ){
+        if ( !isset( $roles['multiplier']['permissions']['view_mapping'] ) ){
             $roles['multiplier']['permissions']['view_mapping'] = true;
         }
 
