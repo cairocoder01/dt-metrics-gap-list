@@ -1,64 +1,25 @@
-# Copyright (C) 2024 Disciple.Tools - Metrics Gap List
-# This file is distributed under the same license as the Disciple.Tools - Metrics Gap List package.
+# Copyright (C) 2024 
+# This file is distributed under the same license as the Disciple.Tools - Metrics Gap List plugin.
 msgid ""
 msgstr ""
 "Project-Id-Version: Disciple.Tools - Metrics Gap List 1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dt-metrics-gap-list-master\n"
-"POT-Creation-Date: 2024-07-16 11:44:12+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dt-metrics-gap-list\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2024-07-16T11:57:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: dt-metrics-gap-list\n"
 
-#: charts/hover-map.php:21
-msgid "Gap Map"
-msgstr ""
-
-#: charts/hover-map.php:22 charts/list.php:23
-msgid "Project"
-msgstr ""
-
-#: charts/hover-map.php:66 charts/list.php:78
-msgid "Sample API Call"
-msgstr ""
-
-#: charts/hover-map.php:123 charts/list.php:131
-msgid "Contacts"
-msgstr ""
-
-#: charts/hover-map.php:168 charts/list.php:176
-msgid "Groups"
-msgstr ""
-
-#: charts/hover-map.php:213 charts/list.php:221
-msgid "Teams"
-msgstr ""
-
-#: charts/hover-map.php:258 charts/list.php:266
-msgid "Churches"
-msgstr ""
-
-#: charts/hover-map.php:305 charts/list.php:313
-msgid "Users"
-msgstr ""
-
-#: charts/list.php:22
-msgid "Gap List"
-msgstr ""
-#. Plugin Name of the plugin/theme
-msgid "Disciple.Tools - Metrics Gap List"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/cairocoder01/dt-metrics-gap-list"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Disciple.Tools - Metrics Gap List is intended to help developers and integrator jumpstart their extension of the Disciple.Tools system."
-msgstr ""
-
-#. Author URI of the plugin/theme
+#. Author URI of the plugin
+#: dt-metrics-gap-list.php
 msgid "https://github.com/cairocoder01"
+msgstr ""
+
+#: charts/hover-map.php:66
+#: charts/list.php:78
+msgid "Sample API Call"
 msgstr ""
