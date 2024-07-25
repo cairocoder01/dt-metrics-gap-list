@@ -3,6 +3,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 class Dt_Metrics_Gap_List_List extends DT_Metrics_Chart_Base
 {
+    public $namespace;
     public $base_slug = 'combined'; // lowercase
     public $base_title;
     public $title;
