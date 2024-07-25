@@ -24,7 +24,7 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           tag_name: ${{ github.ref }}
-          name: Release ${{ github.ref }})
+          name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
           files: ./dt-metrics-gap-list.zip
