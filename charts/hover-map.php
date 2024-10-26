@@ -4,7 +4,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class Dt_Metrics_Gap_List_Hover_Map extends DT_Metrics_Chart_Base
 {
     public $namespace;
-    public $base_slug = 'combined'; // lowercase
+    public $base_slug = 'records'; // lowercase
     public $base_title;
     public $title = 'Gap Map';
     public $slug = 'gap-map'; // lowercase
